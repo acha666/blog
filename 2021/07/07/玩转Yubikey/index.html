@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+    <!-- Baidu Tongji -->
+    <script>var _hmt = _hmt || []</script>
+    <script async src="//hm.baidu.com/hm.js?26491cf0ba80749cfb8b32dd4aabfce9"></script>
+    <!-- End Baidu Tongji -->
+    
+    
+    
+    
+    
+    
+    
+    <script data-ad-client="ca-pub-1134509878624359" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    
+    <meta charset="utf-8">
+    
+    
+    
+    <link rel="canonical" href="https://acha666.cn/2021/07/07/%E7%8E%A9%E8%BD%ACYubikey/">
+    
+    
+    <title>玩转Yubikey | Acha&#39;s Blog | Acha的个人博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="评测,Yubikey,GPG">
+    <meta name="description" content="Yubikey关于GPG、SSH(Win下)、PIV、Windwos登录和FIDO2网站登录的教程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="玩转Yubikey">
+<meta property="og:url" content="https://acha666.cn/2021/07/07/%E7%8E%A9%E8%BD%ACYubikey/index.html">
+<meta property="og:site_name" content="Acha&#39;s Blog">
+<meta property="og:description" content="Yubikey关于GPG、SSH(Win下)、PIV、Windwos登录和FIDO2网站登录的教程">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-07-07T10:34:30.000Z">
+<meta property="article:modified_time" content="2022-03-22T05:29:32.415Z">
+<meta property="article:author" content="Acha">
+<meta property="article:tag" content="评测">
+<meta property="article:tag" content="Yubikey">
+<meta property="article:tag" content="GPG">
+<meta name="twitter:card" content="summary">
+    
+        <link rel="alternate" type="application/atom+xml" title="Acha&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Acha</h5>
+          <a href="mailto:acha@acha666.cn" title="acha@acha666.cn" class="mail">acha@acha666.cn</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/links"  >
+                <i class="icon icon-lg icon-link"></i>
+                友情链接
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">玩转Yubikey</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">玩转Yubikey</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2021-07-07T10:34:30.000Z" itemprop="datePublished" class="page-time">
+  2021-07-07
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#FIDO2-网站登录"><span class="post-toc-number">1.</span> <span class="post-toc-text">FIDO2 网站登录</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#GPG"><span class="post-toc-number">2.</span> <span class="post-toc-text">GPG</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#创建密钥"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">创建密钥</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#创建主密钥"><span class="post-toc-number">2.1.1.</span> <span class="post-toc-text">创建主密钥</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#创建子密钥"><span class="post-toc-number">2.1.2.</span> <span class="post-toc-text">创建子密钥</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#将密钥转移到Yubikey"><span class="post-toc-number">2.1.3.</span> <span class="post-toc-text">将密钥转移到Yubikey</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#导出主密钥"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">导出主密钥</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#设置触摸"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">设置触摸</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#测试"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">测试</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#万一搞砸了…-重置Yubiikey"><span class="post-toc-number">2.5.</span> <span class="post-toc-text">万一搞砸了… 重置Yubiikey</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Commit-签名"><span class="post-toc-number">2.6.</span> <span class="post-toc-text">Commit 签名</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#PIV智能卡"><span class="post-toc-number">3.</span> <span class="post-toc-text">PIV智能卡</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-玩转Yubikey"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">玩转Yubikey</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2021-07-07 18:34:30" datetime="2021-07-07T10:34:30.000Z"  itemprop="datePublished">2021-07-07</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>Yubikey关于GPG、SSH(Win下)、PIV、Windwos登录和FIDO2网站登录的教程</p>
+<a id="more"></a>
+<p>最近买了一个Yubikey 5 NFC，研究了不少时间，总算大致弄明白了</p>
+<h2 id="FIDO2-网站登录"><a href="#FIDO2-网站登录" class="headerlink" title="FIDO2 网站登录"></a>FIDO2 网站登录</h2><p>可谓是最基础的用途了，放一个我找到的能支持的网站列表</p>
+<ul>
+<li>Microsoft个人账户(替代密码)</li>
+<li>Microsoft组织账户(替代密码) <code>需要先由管理员启用</code></li>
+<li>Github(2FA) <code>先添加一个2FA方式，再启用安全密钥</code></li>
+<li>Twitter(2FA)</li>
+<li>Cloudflare(2FA)</li>
+<li>Google(2FA)</li>
+</ul>
+<h2 id="GPG"><a href="#GPG" class="headerlink" title="GPG"></a>GPG</h2><p>GnuPG(GPG)是一个软件，可以用于文件、邮件和Commit等的加密、签名</p>
+<p>Windows下：[Gpg4win]](<a href="https://gpg4win.org/download.html" target="_blank" rel="noopener">https://gpg4win.org/download.html</a>)</p>
+<p>Centos: <code>yum install gpg -y</code></p>
+<p>Ubuntu: <code>apt-get install gpg -y</code></p>
+<p>建议阅读并了解：非对称加密算法、GPG简介:(<a href="https://zhuanlan.zhihu.com/p/137801979" target="_blank" rel="noopener">简明 GPG 概念 - 知乎 (zhihu.com)</a>)</p>
+<p>建议：你需要创建一个主密钥和3个子密钥，子密钥分别只有加密、签名和认证功能，主密钥仅有签发子密钥功能。操作完成后将主密钥离线保存，仅使用子密钥进行操作。</p>
+<h3 id="创建密钥"><a href="#创建密钥" class="headerlink" title="创建密钥"></a>创建密钥</h3><h4 id="创建主密钥"><a href="#创建主密钥" class="headerlink" title="创建主密钥"></a>创建主密钥</h4><p>Windows下cmd，Linux下Bash操作</p>
+<p><code>gpg --expert --full-generate</code></p>
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Please select what kind of key you want:</span><br><span class="line">   (1) RSA and RSA (default)</span><br><span class="line">   (2) DSA and Elgamal</span><br><span class="line">   (3) DSA (sign only)</span><br><span class="line">   (4) RSA (sign only)</span><br><span class="line">   (7) DSA (set your own capabilities)</span><br><span class="line">   (8) RSA (set your own capabilities)</span><br><span class="line">   (9) ECC and ECC</span><br><span class="line">  (10) ECC (sign only)</span><br><span class="line">  (11) ECC (set your own capabilities)</span><br><span class="line">  (13) Existing key</span><br><span class="line">  (14) Existing key from card</span><br><span class="line">Your selection?</span><br></pre></td></tr></table></figure>
+
+<p>选择8或11（出于兼容性问题建议8）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Possible actions for a RSA key: Sign Certify Encrypt Authenticate</span><br><span class="line">Current allowed actions: Sign Certify Encrypt</span><br><span class="line"></span><br><span class="line">   (S) Toggle the sign capability</span><br><span class="line">   (E) Toggle the encrypt capability</span><br><span class="line">   (A) Toggle the authenticate capability</span><br><span class="line">   (Q) Finished</span><br><span class="line"></span><br><span class="line">Your selection?</span><br></pre></td></tr></table></figure>
+
+<p>先后输入<code>S</code> <code>E</code> 关闭主密钥的签名、加密功能，仅剩下<code>Certify</code>功能</p>
+<p>此时显示<code>Current allowed actions: Certify</code></p>
+<p>输入<code>Q</code> 保存</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">RSA keys may be between 1024 and 4096 bits long.</span><br><span class="line">What keysize do you want? (3072)</span><br></pre></td></tr></table></figure>
+
+<p>设定密钥长度，安装个人喜好即可，最长支持4096</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Please specify how long the key should be valid.</span><br><span class="line">         0 &#x3D; key does not expire</span><br><span class="line">      &lt;n&gt;  &#x3D; key expires in n days</span><br><span class="line">      &lt;n&gt;w &#x3D; key expires in n weeks</span><br><span class="line">      &lt;n&gt;m &#x3D; key expires in n months</span><br><span class="line">      &lt;n&gt;y &#x3D; key expires in n years</span><br><span class="line">Key is valid for? (0)</span><br></pre></td></tr></table></figure>
+
+<p>设定有效期，<code>0</code> 为无限期</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Key is valid for? (0) 0</span><br><span class="line">Key does not expire at all</span><br><span class="line">Is this correct? (y&#x2F;N) y</span><br><span class="line"></span><br><span class="line">GnuPG needs to construct a user ID to identify your key.</span><br><span class="line"></span><br><span class="line">Real name: Acha666</span><br><span class="line">Email address: acha@acha666.cn</span><br><span class="line">Comment:</span><br><span class="line">You selected this USER-ID:</span><br><span class="line">    &quot;Acha666 &lt;acha@acha666.cn&gt;&quot;</span><br><span class="line"></span><br><span class="line">Change (N)ame, (C)omment, (E)mail or (O)kay&#x2F;(Q)uit?</span><br></pre></td></tr></table></figure>
+
+<p>接下来输入你的姓名、邮箱，Comment注释可不填，最后输入<code>O</code> 确认</p>
+<p>等待密钥生成，期间会要求设定一个密码来保护私钥</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public and secret key created and signed.</span><br><span class="line"></span><br><span class="line">pub   rsa4096 2021-07-09 [C]</span><br><span class="line">      D37707A72D1D0B214CA3A1DA47E55EC6BE69F5F4</span><br><span class="line">uid                      Acha666 &lt;acha@acha666.cn&gt;</span><br></pre></td></tr></table></figure>
+
+<p>完成后，记下密钥指纹的后8位，比如这里是<code>BE69F5F4</code></p>
+<p>也可输入<code>gpg -k</code> 查看存在的密钥</p>
+<h4 id="创建子密钥"><a href="#创建子密钥" class="headerlink" title="创建子密钥"></a>创建子密钥</h4><p>输入<code>gpg --expert --edit-key [你的密钥指纹后8位]</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Secret key is available.</span><br><span class="line"></span><br><span class="line">sec  rsa4096&#x2F;47E55EC6BE69F5F4</span><br><span class="line">     created: 2021-07-09  expires: never       usage: C</span><br><span class="line">     trust: ultimate      validity: ultimate</span><br><span class="line">[ultimate] (1). Acha666 &lt;acha@acha666.cn&gt;</span><br><span class="line"></span><br><span class="line">gpg&gt;</span><br></pre></td></tr></table></figure>
+
+<p>输入<code>addkey</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">gpg&gt; addkey</span><br><span class="line">Please select what kind of key you want:</span><br><span class="line">   (3) DSA (sign only)</span><br><span class="line">   (4) RSA (sign only)</span><br><span class="line">   (5) Elgamal (encrypt only)</span><br><span class="line">   (6) RSA (encrypt only)</span><br><span class="line">   (7) DSA (set your own capabilities)</span><br><span class="line">   (8) RSA (set your own capabilities)</span><br><span class="line">  (10) ECC (sign only)</span><br><span class="line">  (11) ECC (set your own capabilities)</span><br><span class="line">  (12) ECC (encrypt only)</span><br><span class="line">  (13) Existing key</span><br><span class="line">  (14) Existing key from card</span><br><span class="line">Your selection?</span><br></pre></td></tr></table></figure>
+
+<p>选择8  (Yubikey新版才支持ECC密钥储存)</p>
+<p>我们先创建用于加密的子密钥，像刚才一样进行调整，直到<code>Current allowed actions: Encrypt</code> ，输入Q保存</p>
+<p>接下来设定长度、有效期，最后输入y确定，过程中会要求你输入刚刚设定的密码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sec  rsa4096&#x2F;47E55EC6BE69F5F4</span><br><span class="line">     created: 2021-07-09  expires: never       usage: C</span><br><span class="line">     trust: ultimate      validity: ultimate</span><br><span class="line">ssb  rsa4096&#x2F;C8FBF2621A50F1F9</span><br><span class="line">     created: 2021-07-09  expires: never       usage: E</span><br></pre></td></tr></table></figure>
+
+<p>可以看到多出ssb一栏，就是生成的子密钥</p>
+<p>接下来重复两遍操作，生成用于签名和认证的子密钥</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">sec  rsa4096&#x2F;47E55EC6BE69F5F4</span><br><span class="line">     created: 2021-07-09  expires: never       usage: C</span><br><span class="line">     trust: ultimate      validity: ultimate</span><br><span class="line">ssb  rsa4096&#x2F;C8FBF2621A50F1F9</span><br><span class="line">     created: 2021-07-09  expires: never       usage: E</span><br><span class="line">ssb  rsa4096&#x2F;AE5B1CEB405B6D82</span><br><span class="line">     created: 2021-07-09  expires: never       usage: S</span><br><span class="line">ssb  rsa4096&#x2F;BC9E54467EE12DFB</span><br><span class="line">     created: 2021-07-09  expires: never       usage: A</span><br></pre></td></tr></table></figure>
+
+<p>最后输入save保存并退出</p>
+<h4 id="将密钥转移到Yubikey"><a href="#将密钥转移到Yubikey" class="headerlink" title="将密钥转移到Yubikey"></a>将密钥转移到Yubikey</h4><p><strong><em>请注意：私钥一旦转移到Yubikey就会从电脑中被删除，且无法再被导出</em></strong></p>
+<p><strong>可以先使用</strong><code>gpg --armor --export-secret-subkeys [你的密钥指纹后8位]</code><strong>导出它(但不建议)</strong></p>
+<p>首先插入Yubikey，<code>gpg --edit-card</code></p>
+<p>使用<code>admin</code> 命令开启管理模式</p>
+<p>默认PIN: 123456</p>
+<p>默认Admin PIN: 12345678</p>
+<p>分别设置PIN, Admin PIN 和 PUK</p>
+<p>可以用name命令设置你的姓名，其他信息也可以设置</p>
+<p>退出<code>card-edit</code>模式，然后再<code>gpg --expert --edit-key [你的密钥指纹后8位]</code></p>
+<p>使用<code>key 1</code>选择一号子密钥，被选中的密钥会被用<code>ssb*</code>标记</p>
+<p>输入<code>keytocard</code>导入密钥，请务必在导入时注意选择正确的槽位(slot)</p>
+<p>三个功能不同的密钥与三个不同槽位对应</p>
+<p>然后用<code>key 1</code>反选1号密钥，再对2号3号进行同样操作</p>
+<h3 id="导出主密钥"><a href="#导出主密钥" class="headerlink" title="导出主密钥"></a>导出主密钥</h3><p>在私钥被转移后，你电脑中的私钥相当于一个指针，指向Yubikey中的私钥，每次调用私钥都需要插上智能卡并输入PIN，必要时需要按压金属部分</p>
+<p>首先导出子密钥的指针<code>gpg --armor --export-secret-subkeys BE69F5F4 &gt; %userprofile%/Desktop/Secret_Subkeys</code></p>
+<p>导出所有私钥<code>gpg --armor --export-secret-keys BE69F5F4 &gt; %userprofile%/Desktop/Secretkeys</code></p>
+<p>导出公钥<code>gpg --armor --export BE69F5F4 &gt; %userprofile%/Desktop/Publickeys</code></p>
+<p>完成后会在你的桌面生成三个文件</p>
+<p>之后为了安全起见，请离线保存主密钥并从电脑中删除它</p>
+<p><code>gpg --delete-secret-keys BE69F5F4</code></p>
+<p>这会删除包括子密钥在内的所有私钥，所以你需要重新导入三个子密钥的指针</p>
+<p><code>gpg --import [路径]</code></p>
+<h3 id="设置触摸"><a href="#设置触摸" class="headerlink" title="设置触摸"></a>设置触摸</h3><p>我们可以设置每次调用卡内私钥都需要触摸Yubikey，这需要你首先安装<a href="https://www.yubico.com/support/download/yubikey-manager/" target="_blank" rel="noopener">YubiKey Manager</a></p>
+<p>首先进入安装目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd &quot;C:\Program Files\Yubico\YubiKey Manager&quot;</span><br></pre></td></tr></table></figure>
+
+<p>使用命令</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.\ykman openpgp keys <span class="built_in">set</span>-touch SIG FIXED</span><br><span class="line">.\ykman openpgp keys <span class="built_in">set</span>-touch ENC FIXED</span><br><span class="line">.\ykman openpgp keys <span class="built_in">set</span>-touch AUT FIXED</span><br><span class="line">.\ykman openpgp keys <span class="built_in">set</span>-touch ATT FIXED</span><br></pre></td></tr></table></figure>
+
+<p>即可</p>
+<p>每次操作时，Yubikey上的灯会闪烁，这时就需要触摸Yubikey</p>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>Windows下可以使用自带的GUI客户端Kleopatra中的记事本</p>
+<p>Linux下，使用<code>gpg -r [密钥ID] -e [文件]</code> 就可以使用公钥对文件加密，会生成一个<code>.asc</code>文件</p>
+<p>使用<code>gpg -d [文件]</code>就可使用私钥解密文件</p>
+<h3 id="万一搞砸了…-重置Yubiikey"><a href="#万一搞砸了…-重置Yubiikey" class="headerlink" title="万一搞砸了… 重置Yubiikey"></a>万一搞砸了… 重置Yubiikey</h3><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.\ykman openpgp reset</span><br></pre></td></tr></table></figure>
+
+<p>谨慎使用，会删除所有私钥并将密码恢复到初始状态</p>
+<h3 id="Commit-签名"><a href="#Commit-签名" class="headerlink" title="Commit 签名"></a>Commit 签名</h3><p>进入Git Bash</p>
+<p>Windows下的特殊设置：设置GPG程序地址</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global gpg.program <span class="string">"/c/Program Files (x86)/GnuPG/bin/gpg.exe"</span></span><br></pre></td></tr></table></figure>
+
+<p>设置签名密钥</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.signingkey [密钥ID]</span><br><span class="line">git config --global commit.gpgsign <span class="literal">true</span></span><br><span class="line">git config --global user.email [对应的邮箱]</span><br><span class="line">git config --global user.name [github]</span><br></pre></td></tr></table></figure>
+
+<p>完成后，在<code>git commit</code>时会自动进行签名，需要输入PIN和及时触碰Yubikey</p>
+<h2 id="PIV智能卡"><a href="#PIV智能卡" class="headerlink" title="PIV智能卡"></a>PIV智能卡</h2>
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2022-03-22T05:29:32.415Z" itemprop="dateUpdated">2022-03-22 13:29:32</time>
+</span><br>
+
+
+        
+        感谢你阅读完整篇文章。欢迎在下方评论区发表你的见解或问题，有人回复时你也会收到邮件提醒。如果对内容有意见或者侵权请<a href="mailto:acha@acha666.cn" title="给我发邮件吧">联系我</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://acha666.cn">
+            <img src="/img/avatar.jpg" alt="Acha">
+            Acha
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GPG/" rel="tag">GPG</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Yubikey/" rel="tag">Yubikey</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AF%84%E6%B5%8B/" rel="tag">评测</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://acha666.cn/2021/07/07/%E7%8E%A9%E8%BD%ACYubikey/&title=《玩转Yubikey》 — Acha's Blog&pic=https://acha666.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://acha666.cn/2021/07/07/%E7%8E%A9%E8%BD%ACYubikey/&title=《玩转Yubikey》 — Acha's Blog&source=Yubikey关于GPG、SSH(Win下)、PIV、Windwos登录和FIDO2网站登录的教程" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://acha666.cn/2021/07/07/%E7%8E%A9%E8%BD%ACYubikey/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《玩转Yubikey》 — Acha's Blog&url=https://acha666.cn/2021/07/07/%E7%8E%A9%E8%BD%ACYubikey/&via=https://acha666.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://acha666.cn/2021/07/07/%E7%8E%A9%E8%BD%ACYubikey/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2022/03/22/Klipper%E4%B8%8EKlipperScreen%E8%B8%A9%E5%9D%91%E8%AE%B0/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Klipper与KlipperScreen踩坑记</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2020/07/29/%E5%AE%89%E6%9F%8FLCR%E6%95%B0%E5%AD%97%E7%94%B5%E6%A1%A5AT826%E5%BC%80%E7%AE%B1-%E6%8B%86%E8%A7%A3/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">安柏LCR数字电桥AT826开箱&amp;拆解</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "dywXTGoddyl2aN3z86wyayKw-gzGzoHsz",
+            appKey: "5LauORzVKMMe0C4jpdhi3i2f",
+            avatar: "identicon",
+            placeholder: "说点什么....",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+	<script>
+    if(window.location.hash){
+        var checkExist = setInterval(function() {
+           if (window.location.hash.length) {
+              $('html, body').animate({scrollTop: $(window.location.hash).offset().top-90}, 1000);
+              clearInterval(checkExist);
+           }
+        }, 100);
+    }
+	</script>
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        二维码我放这儿了，剩下的你们自己看着办吧
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容除特殊说明外遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Acha &copy; 2020 - 2022</span>
+            <span>
+                
+                <a href="https://beian.miit.gov.cn/" target="_blank">闽ICP备2021017220号-1</a>
+                
+                
+                    <a href="https://icp.gov.moe/?keyword=202098765" target="_blank">萌ICP备202098765号</a><br>
+                
+                <a href="/2020/05/01/从现在开始，这个博客叫做Acha-s-Blog/" target="_blank">关于博客</a>/<a href="/links/" target="_blank">友情链接</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://acha666.cn/2021/07/07/%E7%8E%A9%E8%BD%ACYubikey/&title=《玩转Yubikey》 — Acha's Blog&pic=https://acha666.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://acha666.cn/2021/07/07/%E7%8E%A9%E8%BD%ACYubikey/&title=《玩转Yubikey》 — Acha's Blog&source=Yubikey关于GPG、SSH(Win下)、PIV、Windwos登录和FIDO2网站登录的教程" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://acha666.cn/2021/07/07/%E7%8E%A9%E8%BD%ACYubikey/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《玩转Yubikey》 — Acha's Blog&url=https://acha666.cn/2021/07/07/%E7%8E%A9%E8%BD%ACYubikey/&via=https://acha666.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://acha666.cn/2021/07/07/%E7%8E%A9%E8%BD%ACYubikey/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACOklEQVR42u3a0W7jMAwEQP//T+eAezqgsLtLucVZHj0VSSprFIChSB1HPD5/x9nr/46vnz/7zNd3r591w8DAwHgs43M5zpbVLvd6a/I5T+fHwMB4AWP2mHw72hnytWFgYGCcPSBnJDPMtgwDAwPjerrhw+JEEAMDA2N2iJ0V0fLt+KWzOAYGxgMZbWPgN//+wf4GBgbGQxifm0Z+lL0urs1WhYGBsTcjL6UlyVybCOapZxSIMTAwtmYk4S9pNK4E1mRToq3HwMB4ASMPbSuFs1kTNGk5YGBg7MfIl5u0BNqksL1+EX0DGBgYmzLyI+hKU6H+BchbmBgYGC9g3HVYzQN0e73jm7VhYGBszWgvPawU49om5XU4xsDAeA+jPZrm4TUPmrMW5jffAwYGxnaMNvDNimVt6b+oqmFgYGzNaAPobFnt8ThPVY/Z7wAGBsYDGbN/a5O5thnQtloxMDB2ZbThsm0k5G3IdiuLTiwGBsbDGUnsapeYf77djvwIjYGBsTdjPYDmFzLad4elOgwMjC0YbduyvTTWUpM5h5VCDAyMjRhtYL3rulhedIsCLgYGxkaMPC1rG5BtqneUAwMD4w2Mu0LqvfikeXD8xC8DBgbGf8lYidCzC2R56X9lBgwMjP0Y7WWI5Og7C6lLKSMGBsYLGHngm6WGeQuzrfxjYGBgtItur1wkIT4KvhgYGBjxY1rArIWJgYHxTkYS/tpX2gQxL8NhYGC8jbF0O2NUjGu3bBbWMTAwtmD8AQaFS6mlakhIAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又回来了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

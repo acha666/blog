@@ -1,0 +1,7 @@
+# robots.txt generated at http://tool.chinaz.com/robots/ 
+User-agent: *
+Disallow: 
+Disallow: /jump
+Disallow: /contents
+Sitemap: https://acha666.cn/sitemap.xml
+Sitemap: https://acha666.cn/baidusitemap.xml

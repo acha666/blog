@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+    <!-- Baidu Tongji -->
+    <script>var _hmt = _hmt || []</script>
+    <script async src="//hm.baidu.com/hm.js?26491cf0ba80749cfb8b32dd4aabfce9"></script>
+    <!-- End Baidu Tongji -->
+    
+    
+    
+    
+    
+    
+    
+    <script data-ad-client="ca-pub-1134509878624359" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    
+    <meta charset="utf-8">
+    
+    
+    
+    <link rel="canonical" href="https://acha666.cn/2020/05/10/%E4%BD%BF%E7%94%A8Cloudflare%E9%85%8D%E7%BD%AEIPV4%E5%92%8CIPV6%E7%9A%84%E5%8A%A8%E6%80%81DNS-DDNS/">
+    
+    
+    <title>使用Cloudflare配置IPV4和IPV6的动态DNS(DDNS) | Acha&#39;s Blog | Acha的个人博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Linux,DDNS,Shell,API">
+    <meta name="description" content="基于Cloudflare API的动态DNS(DDNS)Shell脚本">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Cloudflare配置IPV4和IPV6的动态DNS(DDNS)">
+<meta property="og:url" content="https://acha666.cn/2020/05/10/%E4%BD%BF%E7%94%A8Cloudflare%E9%85%8D%E7%BD%AEIPV4%E5%92%8CIPV6%E7%9A%84%E5%8A%A8%E6%80%81DNS-DDNS/index.html">
+<meta property="og:site_name" content="Acha&#39;s Blog">
+<meta property="og:description" content="基于Cloudflare API的动态DNS(DDNS)Shell脚本">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/10/I2FOKQfpD9xkjlJ.png">
+<meta property="article:published_time" content="2020-05-10T07:47:33.000Z">
+<meta property="article:modified_time" content="2022-03-22T05:29:32.414Z">
+<meta property="article:author" content="Acha">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="DDNS">
+<meta property="article:tag" content="Shell">
+<meta property="article:tag" content="API">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/10/I2FOKQfpD9xkjlJ.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Acha&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Acha</h5>
+          <a href="mailto:acha@acha666.cn" title="acha@acha666.cn" class="mail">acha@acha666.cn</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/links"  >
+                <i class="icon icon-lg icon-link"></i>
+                友情链接
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">使用Cloudflare配置IPV4和IPV6的动态DNS(DDNS)</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">使用Cloudflare配置IPV4和IPV6的动态DNS(DDNS)</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-05-10T07:47:33.000Z" itemprop="datePublished" class="page-time">
+  2020-05-10
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#为什么要写这个"><span class="post-toc-number">1.</span> <span class="post-toc-text">为什么要写这个</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#更新"><span class="post-toc-number">2.</span> <span class="post-toc-text">更新</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#那么要怎么用呢？"><span class="post-toc-number">3.</span> <span class="post-toc-text">那么要怎么用呢？</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#设置crontab计划任务"><span class="post-toc-number">4.</span> <span class="post-toc-text">设置crontab计划任务</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#注意事项"><span class="post-toc-number">5.</span> <span class="post-toc-text">注意事项</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#要是还是有BUG怎么办？"><span class="post-toc-number">6.</span> <span class="post-toc-text">要是还是有BUG怎么办？</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-使用Cloudflare配置IPV4和IPV6的动态DNS-DDNS"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">使用Cloudflare配置IPV4和IPV6的动态DNS(DDNS)</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-05-10 15:47:33" datetime="2020-05-10T07:47:33.000Z"  itemprop="datePublished">2020-05-10</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>基于Cloudflare API的动态DNS(DDNS)Shell脚本</p>
+<a id="more"></a>
+<h4 id="为什么要写这个"><a href="#为什么要写这个" class="headerlink" title="为什么要写这个"></a>为什么要写这个</h4><p>家里的网络环境是电信200M光纤，虽然很容易的拿到了公网IP，但是IP的变换速度很不规则。所以需要做DDNS实时把IP解析到自己的域名上。之前一直用DnsPod的免费版，好处是群晖的控制面板可以直接进行配置。最近由于做博客的需求，把NS记录改成了Cloudflare的以方便使用他家提供的CDN。那么问题就来了，群晖NAS本身不支持CF的DDNS服务，再加上网络上许多介绍Cloudflare DDNS脚本的文章没法用或者写的不详细。自己在<a href="https://github.com/aipeach/cloudflare-api-v4-ddns" target="_blank" rel="noopener" title="aipeach/cloudflare-api-v4-ddns">aipeach/cloudflare-api-v4-ddns</a>的基础上做了一些修改，产生了这篇文章。</p>
+<h4 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h4><p>2020.5.23更新，修复了由于CloudflareAPI修改导致的脚本提示错误，但实际修改记录成功的bug。</p>
+<p>首先，我也不经常写linux脚本，所以对于.sh文件就像看天书一样XD，通过查找很多资料然后添加断点，找出了原因：没有办法正常获取解析记录ID（在官方文档里面叫Record ID）,初步感觉应该是脚本过于老旧，但是CloudflareAPI经常更新的缘故。<br>那么就有两个解决办法，直接手动获取Record ID填进去，或者改脚本。<br>但是Record ID这东西貌似删除记录然后重新创建就会变动，到时候要重新获取，就很麻烦，所以我采用了一劳永逸的办法。顺便给脚本加入了日志功能，把整个脚本汉化了一遍然后修复了一些小bug。</p>
+<h4 id="那么要怎么用呢？"><a href="#那么要怎么用呢？" class="headerlink" title="那么要怎么用呢？"></a>那么要怎么用呢？</h4><p>首先下载这个脚本，如果你在linux环境下，且有条件“面对国内网络环境”，可以使用这个命令<br>使用它的前提是你有安装curl，<a href="https://www.baidu.com/s?wd=%E5%AE%89%E8%A3%85curl" target="_blank" rel="noopener" title="别问，问就是百度">如何安装curl</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl https://raw.githubusercontent.com/acha666/cloudflare-api-v4-ddns/master/cf-v4-ddns.sh &gt; /usr/local/bin/cf-ddns.sh &amp;&amp; chmod +x /usr/local/bin/cf-ddns.sh</span><br></pre></td></tr></table></figure>
+<p>或者通过我的博客下载（可能不会是最新版）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl https://acha666.cn/contents/cloudflare-api-v4-ddns/cf-v4-ddns.sh &gt; /usr/local/bin/cf-ddns.sh &amp;&amp; chmod +x /usr/local/bin/cf-ddns.sh</span><br></pre></td></tr></table></figure>
+<p>在Windows环境下可以去我的<a href="https://github.com/acha666/cloudflare-api-v4-ddns" target="_blank" rel="noopener" title="项目地址">项目地址</a>直接下载<br>然后打开这个脚本，需要手动配置的地方已经使用注释标出</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 你的Global API Key, 请见 https://dash.cloudflare.com/profile/api-tokens,</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 如果填写错误会造成请求错误</span></span><br><span class="line">CFKEY="b8c657a9b6ca96ba9babfdd9fa8bfa9dba9bf"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Cloudflare登录邮箱, 例如: user@example.com</span></span><br><span class="line">CFUSER="username@example.com"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 主域名，即二级域名，或者说站点名称, 例如: example.com</span></span><br><span class="line">CFZONE_NAME="example.com"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 想要进行ddns的域名, 例如: homeserver.example.com，也可以是二级域名如 example.com</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 请分别设置用于IPv4 DDNS 和 IPv6 DDNS 的域名。</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 当然，两者可以相同也可以其中一个不填（如果你用不着其中一项的话）</span></span><br><span class="line">CFRECORD_NAMEV4="ddns.example.com"</span><br><span class="line">CFRECORD_NAMEV6="ddnsv6.example.com"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 记录类型, A(IPv4)|AAAA(IPv6), 默认 IPv4</span></span><br><span class="line">CFRECORD_TYPE="A"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> TTL设置, 在 120 和 86400 秒之间</span></span><br><span class="line">CFTTL=120</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 忽略本地ip文件，强制更新记录</span></span><br><span class="line">FORCE=false</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 用于获取公网IP的地址, 可以换成其他的比如: bot.whatismyipaddress.com, https://api.ipify.org/ ...</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 请分别设置用于IPv4 DDNS 和 IPv6 DDNS 的参数。</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 当然，两者可以相同也可以其中一个不填（如果你用不着其中一项的话）</span></span><br><span class="line">WANIPSITEV4="http://ipv4.icanhazip.com" </span><br><span class="line">WANIPSITEV6="http://ipv6.icanhazip.com" </span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 这个文件将会存储你的zoneid和recordid等信息，可以是绝对路径或者相对路径</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 请分别设置用于IPv4 DDNS 和 IPv6 DDNS 的路径。</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 当然，两者可以相同也可以其中一个不填（如果你用不着其中一项的话）</span></span><br><span class="line">ID_FILEV4="cloudflare.v4.ids" </span><br><span class="line">ID_FILEV6="cloudflare.v6.ids"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 这个文件将会在每一次IPv4地址变更后存储下当前IP，作为对比</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 请分别设置用于IPv4 DDNS 和 IPv6 DDNS 的路径。</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 当然，两者可以相同也可以其中一个不填（如果你用不着其中一项的话）</span></span><br><span class="line">WAN_IP_FILEV4="ipv4.txt"</span><br><span class="line">WAN_IP_FILEV6="ipv6.txt"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 日志文件路径，分别是IPv4和IPv6，可以为同一个，不会互相覆盖</span></span><br><span class="line">LOG_FILEV4="cf_ddns.log"</span><br><span class="line">LOG_FILEV6="cf_ddns.log"</span><br></pre></td></tr></table></figure>
+<p>当然，你也可以选择不使用默认配置，在shell中用参数提供这些信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 用法:</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> cf-ddns.sh -k &lt;你的cloudflare api key&gt; \</span></span><br><span class="line"><span class="meta">#</span><span class="bash">            -u &lt;Cloudflare登录邮箱&gt; \</span></span><br><span class="line"><span class="meta">#</span><span class="bash">            -h &lt;host.example.com&gt; \     <span class="comment"># 你想要DDNS的完整域名</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash">            -z &lt;example.com&gt; \          <span class="comment"># 主域名，即二级域名，或者说站点名称</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash">            -t &lt;A|AAAA&gt;                 <span class="comment"># IPv4模式或者IPv6模式；默认IPv4</span></span></span><br></pre></td></tr></table></figure>
+<p>配置完成后，运行<code>bash cf-ddns.sh</code>即可</p>
+<h4 id="设置crontab计划任务"><a href="#设置crontab计划任务" class="headerlink" title="设置crontab计划任务"></a>设置crontab计划任务</h4><p>十分简单，首先输入<code>crontab -e</code><br>然后在文件中添加新的一行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*/1 * * * * "/usr/local/bin/cf-ddns.sh" &gt;/dev/null 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
+<p>这样将会每分钟执行一次这个脚本。把<code>*/1</code>改成<code>*/10</code>就是每10分钟执行一次。<br>如果你改变了<code>cf-ddns.sh</code>的所在位置，相应的，你也要把<code>/usr/local/bin/cf-ddns.sh</code>改变成正确的目录。<br>当然，你也可以在<code>cf-ddns.sh</code>之后添加相应的参数。<br>不过，如果你和我一样使用群晖,只需要在控制面板-计划任务中添加新项目，然后设置好时间就行</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://i.loli.net/2020/05/10/I2FOKQfpD9xkjlJ.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h4 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h4><p><del>1.不能同时存在两个记录名相同的记录(比如一个example.com的A记录和example.com的MX记录)，会发生错误</del>已经修复这个蛋疼的问题，现在有100个也没问题（话说哪里来的100种类型的记录啊= =）<br>2.脚本只在群晖DSM和Centos环境下测试，不过Ubuntu之类的也应该可以跑吧<br>3.如果要使用IPv6模式，当然首先你要保证你能够正常访问IPv6网站啦~<a href="https://www.test-ipv6.com/" target="_blank" rel="noopener" title="当然是测试能不能访问IPv6网站啦">测试一下吧</a><br>4.貌似没有了，因为我能发现的问题都修复完了</p>
+<h4 id="要是还是有BUG怎么办？"><a href="#要是还是有BUG怎么办？" class="headerlink" title="要是还是有BUG怎么办？"></a>要是还是有BUG怎么办？</h4><p>看下面↓↓↓，给我留言就好，有人回复你时你会收到邮件提醒。或者你也可以选择<a href="https://github.com/acha666/cloudflare-api-v4-ddns/issues" target="_blank" rel="noopener" title="去Github提交Issue">提交Issue</a>，不过可能没那么快得到回复</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2022-03-22T05:29:32.414Z" itemprop="dateUpdated">2022-03-22 13:29:32</time>
+</span><br>
+
+
+        
+        感谢你阅读完整篇文章。欢迎在下方评论区发表你的见解或问题，有人回复时你也会收到邮件提醒。如果对内容有意见或者侵权请<a href="mailto:acha@acha666.cn" title="给我发邮件吧">联系我</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://acha666.cn">
+            <img src="/img/avatar.jpg" alt="Acha">
+            Acha
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/API/" rel="tag">API</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DDNS/" rel="tag">DDNS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/" rel="tag">Shell</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://acha666.cn/2020/05/10/%E4%BD%BF%E7%94%A8Cloudflare%E9%85%8D%E7%BD%AEIPV4%E5%92%8CIPV6%E7%9A%84%E5%8A%A8%E6%80%81DNS-DDNS/&title=《使用Cloudflare配置IPV4和IPV6的动态DNS(DDNS)》 — Acha's Blog&pic=https://acha666.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://acha666.cn/2020/05/10/%E4%BD%BF%E7%94%A8Cloudflare%E9%85%8D%E7%BD%AEIPV4%E5%92%8CIPV6%E7%9A%84%E5%8A%A8%E6%80%81DNS-DDNS/&title=《使用Cloudflare配置IPV4和IPV6的动态DNS(DDNS)》 — Acha's Blog&source=基于Cloudflare API的动态DNS(DDNS)Shell脚本" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://acha666.cn/2020/05/10/%E4%BD%BF%E7%94%A8Cloudflare%E9%85%8D%E7%BD%AEIPV4%E5%92%8CIPV6%E7%9A%84%E5%8A%A8%E6%80%81DNS-DDNS/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《使用Cloudflare配置IPV4和IPV6的动态DNS(DDNS)》 — Acha's Blog&url=https://acha666.cn/2020/05/10/%E4%BD%BF%E7%94%A8Cloudflare%E9%85%8D%E7%BD%AEIPV4%E5%92%8CIPV6%E7%9A%84%E5%8A%A8%E6%80%81DNS-DDNS/&via=https://acha666.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://acha666.cn/2020/05/10/%E4%BD%BF%E7%94%A8Cloudflare%E9%85%8D%E7%BD%AEIPV4%E5%92%8CIPV6%E7%9A%84%E5%8A%A8%E6%80%81DNS-DDNS/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2020/05/23/%E5%A6%82%E4%BD%95%E7%A7%91%E5%AD%A6%E7%9A%84%E7%99%BD%E5%AB%96Azure/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">如何科学的白嫖Azure</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2020/05/01/%E4%BB%8E%E7%8E%B0%E5%9C%A8%E5%BC%80%E5%A7%8B%EF%BC%8C%E8%BF%99%E4%B8%AA%E5%8D%9A%E5%AE%A2%E5%8F%AB%E5%81%9AAcha-s-Blog/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">从现在开始，这个博客叫做Acha&#39;s Blog</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "dywXTGoddyl2aN3z86wyayKw-gzGzoHsz",
+            appKey: "5LauORzVKMMe0C4jpdhi3i2f",
+            avatar: "identicon",
+            placeholder: "说点什么....",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+	<script>
+    if(window.location.hash){
+        var checkExist = setInterval(function() {
+           if (window.location.hash.length) {
+              $('html, body').animate({scrollTop: $(window.location.hash).offset().top-90}, 1000);
+              clearInterval(checkExist);
+           }
+        }, 100);
+    }
+	</script>
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        二维码我放这儿了，剩下的你们自己看着办吧
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.png" data-alipay="/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容除特殊说明外遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Acha &copy; 2020 - 2022</span>
+            <span>
+                
+                <a href="https://beian.miit.gov.cn/" target="_blank">闽ICP备2021017220号-1</a>
+                
+                
+                    <a href="https://icp.gov.moe/?keyword=202098765" target="_blank">萌ICP备202098765号</a><br>
+                
+                <a href="/2020/05/01/从现在开始，这个博客叫做Acha-s-Blog/" target="_blank">关于博客</a>/<a href="/links/" target="_blank">友情链接</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://acha666.cn/2020/05/10/%E4%BD%BF%E7%94%A8Cloudflare%E9%85%8D%E7%BD%AEIPV4%E5%92%8CIPV6%E7%9A%84%E5%8A%A8%E6%80%81DNS-DDNS/&title=《使用Cloudflare配置IPV4和IPV6的动态DNS(DDNS)》 — Acha's Blog&pic=https://acha666.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://acha666.cn/2020/05/10/%E4%BD%BF%E7%94%A8Cloudflare%E9%85%8D%E7%BD%AEIPV4%E5%92%8CIPV6%E7%9A%84%E5%8A%A8%E6%80%81DNS-DDNS/&title=《使用Cloudflare配置IPV4和IPV6的动态DNS(DDNS)》 — Acha's Blog&source=基于Cloudflare API的动态DNS(DDNS)Shell脚本" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://acha666.cn/2020/05/10/%E4%BD%BF%E7%94%A8Cloudflare%E9%85%8D%E7%BD%AEIPV4%E5%92%8CIPV6%E7%9A%84%E5%8A%A8%E6%80%81DNS-DDNS/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《使用Cloudflare配置IPV4和IPV6的动态DNS(DDNS)》 — Acha's Blog&url=https://acha666.cn/2020/05/10/%E4%BD%BF%E7%94%A8Cloudflare%E9%85%8D%E7%BD%AEIPV4%E5%92%8CIPV6%E7%9A%84%E5%8A%A8%E6%80%81DNS-DDNS/&via=https://acha666.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://acha666.cn/2020/05/10/%E4%BD%BF%E7%94%A8Cloudflare%E9%85%8D%E7%BD%AEIPV4%E5%92%8CIPV6%E7%9A%84%E5%8A%A8%E6%80%81DNS-DDNS/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASYAAAEmCAAAAADqr2IGAAAEjUlEQVR42u3aS24bMRAFQN//0s7WgCPpve4xII5qVoajaMiiAfbv6yt+vn88j37//Pn5+d/fsFnJ75+T33z9xYMJEyZMmN6SKd/eoxckn8yXmxM/X0P+yed7x4QJEyZM92DKX5xs4/kr2yPJDykPYvK9Y8KECROmT2ZKXtDyzZLq9vrHhAkTJkyYnjO1ELPS6iawyIMPTJgwYcL0CUyzNmTenkzCiLYZmae1yfdfVgvHhAkTJkxvxpRfzPf7+U/mmzBhwoQJ09swfZdPPhaTBAqbhHlWAv4ePZgwYcKE6Vym/ILMR23yJHkWjiS/nw0AvVgzJkyYMGG6KdNfFFhnAzpXtTPzYSNMmDBhwnQ6U3vRJpdrksRumqazJHzVzsSECRMmTIcz5YMy7VXakuWBxabgu6qFY8KECROmw5k25dG/a4jmheMZ94v0GBMmTJgwHcs0W2ILl6S7bRN0lsQmuFG7FBMmTJgwHcXUbrhNSmehw6xMnB9SXTjGhAkTJkzHMs3Sy3aTm5JunugmR9WGGpgwYcKE6XSmTUk3f80MdN80zVFeCGDChAkTpgOZ8it21jictQ/3lHkjMxqZxYQJEyZMxzLlT9tWzF+fLCWnbMOFnBITJkyYMN2DaV+EnTG15dq8mBvNK7V/R5gwYcKE6UCmq5qRbTk1CQL2Bdx818XfESZMmDBhOoRpUzzdX/ltUbjlSI4/IsOECRMmTMcybQq+ySZnhd32MPaNycuAMGHChAnT2zBt0sJZefeqVHYWpiTfgwkTJkyY7sSUX/btUtqG4qxVuQkyZi1PTJgwYcJ0ItPsUk+Cg9llPAss2qPKgxVMmDBhwnQPprYYmgQK7XDPvshbR0D5/8KECRMmTAcyzRLRfduy/Uy7klmo8fBIMGHChAnTsUzXbjgPIPJEOi/yrmrbSSKNCRMmTJgOZEpoNhdzS5OXjPNBonzA6CEWJkyYMGE6lqkdxGk31rZFNxuePUXhGBMmTJgwHcs023yeJM+GePZHMmuIYsKECROmOzHtR2E2i2gT700KnSfq/1kbJkyYMGE6lmlGkFz5+RhNy7E/jOHgDiZMmDBhugVTstXN1dsO7rTBShtS1GEHJkyYMGE6immWfM4WlxdVr/p8G748PE5MmDBhwnQjpqLzuWg35rXT5PvztbWN2K920ZgwYcKE6S2ZkmJrGxy0l/SsMTmjbIvOmDBhwoTpdKb8om1bjEWbcDRSkyTG7Te/6PRiwoQJE6ZjmfKrvR3KSS7v2djNjK8tQ2PChAkTpnOZcqDZpbspzm6Os02zayxMmDBhwnQI03f5tJdrUg6ebXgWpgwPEhMmTJgwHcvUXsntNvJGZh6zJCXjTeK9ejBhwoQJ01sy7YOATZk4H/rJm5RtMTpK7DFhwoQJ0+FMs0u6vfj35df2aPN3RfVvTJgwYcL0AUz5568qreb/usF68UlMmDBhwvSRTG0osG+I5uNESTk4Dy8wYcKECdPpTO212m6sLSW3BdlZIl2k7pgwYcKE6Vimq8qss6Xn6fFsfKc9tgvmmzBhwoQJ07sw/QO8I94/CidD4gAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又回来了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
